@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Debug",
+            "type": "dart",
+            "flutterMode": "debug",
+            "request": "launch",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port",
+                "5678",
+            ]
+        },
+        {
+            "name": "Launch Profile",
+            "type": "dart",
+            "flutterMode": "profile",
+            "request": "launch",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port",
+                "5678",
+            ]
+        },
+        {
+            "name": "Launch Release",
+            "type": "dart",
+            "flutterMode": "release",
+            "request": "launch",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port",
+                "5678",
+            ]
+        }
+    ]
+}
