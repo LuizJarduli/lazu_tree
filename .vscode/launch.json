@@ -11,6 +11,7 @@
                 "chrome",
                 "--web-port",
                 "5678",
+                "--web-experimental-hot-reload"
             ]
         },
         {
@@ -23,6 +24,7 @@
                 "chrome",
                 "--web-port",
                 "5678",
+                "--web-experimental-hot-reload"
             ]
         },
         {
