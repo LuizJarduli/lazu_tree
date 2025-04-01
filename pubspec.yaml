@@ -22,3 +22,16 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: GeosansLight
+      fonts:
+        - asset: assets/fonts/geo_sans_light/GeosansLight.ttf
+        - asset: assets/fonts/geo_sans_light/GeosansLight-Oblique.ttf
+    - family: Kalufonia
+      fonts:
+        - asset: assets/fonts/kalufonia/Kalufonia-Regular.otf
+    - family: Gloria_Hallelujah
+      fonts:
+        - asset: assets/fonts/Gloria_Hallelujah/GloriaHallelujah-Regular.ttf
+
