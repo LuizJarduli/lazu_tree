@@ -5,47 +5,44 @@ class WipPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('')),
-      body: const _NotebookPaper(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 160),
-                  child: Text(
-                    'Em breve',
-                    style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Center(
-                child: Text(
-                  'ACHADOS\n\t\t\t\t\t\t\tDA LAZU',
-                  style: TextStyle(fontFamily: 'Kalufonia', fontSize: 72),
-                ),
-              ),
-            ),
-            Expanded(
+    return const _NotebookPaper(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Padding(
-                padding: EdgeInsets.only(left: 160),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    ' \u2015 Seu perfil de achadinhos de confiança',
-                    style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
-                  ),
+                padding: EdgeInsets.only(right: 160),
+                child: Text(
+                  'Em breve',
+                  style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(
+              child: Text(
+                'ACHADOS\n\t\t\t\t\t\t\tDA LAZU',
+                style: TextStyle(fontFamily: 'Kalufonia', fontSize: 72),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 160),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  ' \u2015 Seu perfil de achadinhos de confiança',
+                  style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
