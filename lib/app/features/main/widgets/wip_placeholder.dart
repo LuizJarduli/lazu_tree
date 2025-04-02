@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:lazu_tree/app/shared/extensions/app_breakpoints_ext.dart';
 
 class WipPlaceholder extends StatelessWidget {
-  const WipPlaceholder({super.key});
+  const WipPlaceholder({required this.constraints, super.key});
+
+  final BoxConstraints constraints;
+
+  bool get isMedium => constraints.isMedium;
+
+  bool get isSmall => constraints.isSmall;
 
   @override
   Widget build(BuildContext context) {
-    return const _NotebookPaper(
+    return _NotebookPaper(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -13,10 +20,13 @@ class WipPlaceholder extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: EdgeInsets.only(right: 160),
+                padding: const EdgeInsets.only(right: 160),
                 child: Text(
                   'Em breve',
-                  style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
+                  style: TextStyle(
+                    fontFamily: 'Kalufonia',
+                    fontSize: isMedium || isSmall ? 16 : 32,
+                  ),
                 ),
               ),
             ),
@@ -26,18 +36,24 @@ class WipPlaceholder extends StatelessWidget {
             child: Center(
               child: Text(
                 'ACHADOS\n\t\t\t\t\t\t\tDA LAZU',
-                style: TextStyle(fontFamily: 'Kalufonia', fontSize: 72),
+                style: TextStyle(
+                  fontFamily: 'Kalufonia',
+                  fontSize: isMedium || isSmall ? 36 : 72,
+                ),
               ),
             ),
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 160),
+              padding: EdgeInsets.only(left: isMedium || isSmall ? 0 : 160),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   ' \u2015 Seu perfil de achadinhos de confiança',
-                  style: TextStyle(fontFamily: 'Kalufonia', fontSize: 32),
+                  style: TextStyle(
+                    fontFamily: 'Kalufonia',
+                    fontSize: isMedium || isSmall ? 16 : 32,
+                  ),
                 ),
               ),
             ),
