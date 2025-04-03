@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lazu_tree/app/features/link_tree/link_tree_route.dart';
 import 'package:lazu_tree/app/features/main/main_route.dart';
 import 'package:lazu_tree/app/features/not_found/not_found_page.dart';
 
@@ -11,7 +12,7 @@ sealed class AppRouter {
     navigatorKey: navigatorKey,
     debugLogDiagnostics: kDebugMode,
     initialLocation: MainRoute.path,
-    routes: [MainRoute.route],
+    routes: [MainRoute.route, LinkTreeRoute.route],
     errorBuilder: (_, __) => const NotFoundPage(),
   );
 
