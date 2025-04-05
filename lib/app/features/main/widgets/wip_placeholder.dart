@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lazu_tree/app/features/link_tree/link_tree_route.dart';
 import 'package:lazu_tree/app/shared/extensions/app_breakpoints_ext.dart';
 
 class WipPlaceholder extends StatelessWidget {
@@ -54,6 +56,19 @@ class WipPlaceholder extends StatelessWidget {
                     fontFamily: 'Kalufonia',
                     fontSize: isMedium || isSmall ? 16 : 32,
                   ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 160),
+                child: ElevatedButton.icon(
+                  onPressed: () => context.push(LinkTreeRoute.path),
+                  label: const Text('Ir para os links'),
+                  icon: const Icon(Icons.arrow_right_alt),
                 ),
               ),
             ),
