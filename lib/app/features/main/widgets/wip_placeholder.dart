@@ -69,6 +69,7 @@ class WipPlaceholder extends StatelessWidget {
                   onPressed: () => context.push(LinkTreeRoute.path),
                   label: const Text('Ir para os links'),
                   icon: const Icon(Icons.arrow_right_alt),
+                  iconAlignment: IconAlignment.end,
                 ),
               ),
             ),
