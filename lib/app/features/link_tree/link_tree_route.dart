@@ -4,8 +4,8 @@ import 'package:lazu_tree/app/features/link_tree/link_tree_page.dart';
 class LinkTreeRoute {
   static const path = '/links';
 
-  static final RouteBase route = GoRoute(
+  static final GoRoute route = GoRoute(
     path: path,
-    builder: (context, state) => const LinkTreePage(),
+    builder: LinkTreePage.providerPageBuilder,
   );
 }
