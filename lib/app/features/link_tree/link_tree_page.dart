@@ -20,12 +20,13 @@ class LinkTreePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: LinkTreeAdminAppBar(),
+    return Scaffold(
+      appBar: const LinkTreeAdminAppBar(),
       extendBodyBehindAppBar: true,
       extendBody: true,
-      body: LinkTreeContainer(),
-      bottomNavigationBar: LinkTreeAdminBottomBar(),
+      backgroundColor: Colors.grey.shade200,
+      body: const LinkTreeContainer(),
+      bottomNavigationBar: const LinkTreeAdminBottomBar(),
     );
   }
 }

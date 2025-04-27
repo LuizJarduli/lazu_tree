@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
 
 class LinkTreeAdminBottomBar extends StatefulWidget {
   const LinkTreeAdminBottomBar({super.key});
@@ -7,7 +9,41 @@ class LinkTreeAdminBottomBar extends StatefulWidget {
   State<LinkTreeAdminBottomBar> createState() => _LinkTreeAdminBottomBarState();
 }
 
-class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar> {
+class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController? _animationController;
+  late final Animation<Offset> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    _animation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _animationController!, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  void toggleSlide({required bool toggle}) {
+    if (toggle) {
+      _animationController?.forward();
+    } else {
+      _animationController?.reverse();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -18,62 +54,70 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar> {
     // const accentColor = Color(0xffffffff);
     // const backgroundColor = Colors.white;
 
-    return BottomAppBar(
-      color: Colors.transparent,
-      elevation: 0,
-      child: Stack(
-        children: [
-          CustomPaint(
-            size: Size(size.width, height + 6),
-            painter: BottomNavCurvePainter(),
+    return BlocListener<LinkTreeCubit, LinkTreeState>(
+      listener: (context, state) => toggleSlide(toggle: state.isEditing),
+      listenWhen:
+          (previous, current) => previous.isEditing != current.isEditing,
+      child: SlideTransition(
+        position: _animation,
+        child: BottomAppBar(
+          color: Colors.transparent,
+          elevation: 0,
+          child: Stack(
+            children: [
+              CustomPaint(
+                size: Size(size.width, height + 6),
+                painter: BottomNavCurvePainter(),
+              ),
+              Center(
+                heightFactor: 0.6,
+                child: FloatingActionButton(
+                  backgroundColor: primaryColor,
+                  elevation: 0.1,
+                  onPressed: () {},
+                  child: const Icon(Icons.shopping_basket),
+                ),
+              ),
+              SizedBox(
+                height: height,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NavBarIcon(
+                      text: 'Home',
+                      icon: Icons.home_outlined,
+                      selected: true,
+                      onPressed: () {},
+                      selectedColor: primaryColor,
+                    ),
+                    NavBarIcon(
+                      text: 'Search',
+                      icon: Icons.search_outlined,
+                      selected: false,
+                      onPressed: () {},
+                      selectedColor: primaryColor,
+                    ),
+                    const SizedBox(width: 56),
+                    NavBarIcon(
+                      text: 'Cart',
+                      icon: Icons.local_grocery_store_outlined,
+                      selected: false,
+                      onPressed: () {},
+                      selectedColor: primaryColor,
+                    ),
+                    NavBarIcon(
+                      text: 'Calendar',
+                      icon: Icons.date_range_outlined,
+                      selected: false,
+                      onPressed: () {},
+                      selectedColor: primaryColor,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Center(
-            heightFactor: 0.6,
-            child: FloatingActionButton(
-              backgroundColor: primaryColor,
-              elevation: 0.1,
-              onPressed: () {},
-              child: const Icon(Icons.shopping_basket),
-            ),
-          ),
-          SizedBox(
-            height: height,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                NavBarIcon(
-                  text: 'Home',
-                  icon: Icons.home_outlined,
-                  selected: true,
-                  onPressed: () {},
-                  selectedColor: primaryColor,
-                ),
-                NavBarIcon(
-                  text: 'Search',
-                  icon: Icons.search_outlined,
-                  selected: false,
-                  onPressed: () {},
-                  selectedColor: primaryColor,
-                ),
-                const SizedBox(width: 56),
-                NavBarIcon(
-                  text: 'Cart',
-                  icon: Icons.local_grocery_store_outlined,
-                  selected: false,
-                  onPressed: () {},
-                  selectedColor: primaryColor,
-                ),
-                NavBarIcon(
-                  text: 'Calendar',
-                  icon: Icons.date_range_outlined,
-                  selected: false,
-                  onPressed: () {},
-                  selectedColor: primaryColor,
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
