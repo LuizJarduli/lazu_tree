@@ -1,7 +1,7 @@
 {
   "dart.flutterSdkPath": ".fvm/versions/3.31.0-0.1.pre",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit",
+    "source.organizeImports": "explicit"
   },
   "cSpell.words": [
     "lazu"
