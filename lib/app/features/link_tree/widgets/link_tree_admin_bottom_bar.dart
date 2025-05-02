@@ -67,7 +67,7 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
             children: [
               CustomPaint(
                 size: Size(size.width, height + 6),
-                painter: BottomNavCurvePainter(),
+                painter: const BottomNavCurvePainter(),
               ),
               Center(
                 heightFactor: 0.6,
@@ -124,13 +124,15 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
 }
 
 class BottomNavCurvePainter extends CustomPainter {
-  BottomNavCurvePainter({
+  const BottomNavCurvePainter({
     this.backgroundColor = Colors.white,
     this.insetRadius = 38,
   });
 
-  Color backgroundColor;
-  double insetRadius;
+  final Color backgroundColor;
+
+  final double insetRadius;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint =
@@ -139,21 +141,22 @@ class BottomNavCurvePainter extends CustomPainter {
           ..style = PaintingStyle.fill;
     final path = Path()..moveTo(0, 12);
 
-    final insetCurveBeginnningX = size.width / 2 - insetRadius;
+    final insetCurveBeginningX = size.width / 2 - insetRadius;
     final insetCurveEndX = size.width / 2 + insetRadius;
     final transitionToInsetCurveWidth = size.width * .05;
 
     path
+      ..arcToPoint(const Offset(8, 8), radius: const Radius.circular(10))
       ..quadraticBezierTo(
         size.width * 0.20,
         0,
-        insetCurveBeginnningX - transitionToInsetCurveWidth,
+        insetCurveBeginningX - transitionToInsetCurveWidth,
         0,
       )
       ..quadraticBezierTo(
-        insetCurveBeginnningX,
+        insetCurveBeginningX,
         0,
-        insetCurveBeginnningX,
+        insetCurveBeginningX,
         insetRadius / 2,
       )
       ..arcToPoint(
@@ -167,13 +170,17 @@ class BottomNavCurvePainter extends CustomPainter {
         insetCurveEndX + transitionToInsetCurveWidth,
         0,
       )
-      ..quadraticBezierTo(size.width * 0.80, 0, size.width, 12)
-      ..lineTo(size.width, size.height + 56)
-      ..lineTo(
-        0,
-        size.height + 56,
-      ); //+56 here extends the navbar below app bar to include extra space on
-    //some screens (iphone 11)
+      ..quadraticBezierTo(size.width * 0.80, 0, size.width - 16, 12)
+      ..arcToPoint(
+        Offset(size.width - 8, 16),
+        radius: const Radius.circular(10),
+        rotation: 180,
+      )
+      ..lineTo(size.width - 8, size.height + 56)
+      // +56 here extends the navbar below app bar to include extra space on
+      // some screens (iPhone 11)
+      ..lineTo(0, size.height + 56);
+
     canvas.drawPath(path, paint);
   }
 
