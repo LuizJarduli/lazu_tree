@@ -49,7 +49,7 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
     final size = MediaQuery.of(context).size;
     const double height = 56;
 
-    const primaryColor = Colors.orange;
+    final primaryColor = Colors.pinkAccent.shade100;
     // const secondaryColor = Colors.black54;
     // const accentColor = Color(0xffffffff);
     // const backgroundColor = Colors.white;
@@ -73,9 +73,11 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
                 heightFactor: 0.6,
                 child: FloatingActionButton(
                   backgroundColor: primaryColor,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   elevation: 0.1,
+                  tooltip: 'Editar página',
                   onPressed: () {},
-                  child: const Icon(Icons.shopping_basket),
+                  child: const Icon(Icons.draw_outlined),
                 ),
               ),
               SizedBox(
@@ -84,31 +86,27 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     NavBarIcon(
-                      text: 'Home',
-                      icon: Icons.home_outlined,
-                      selected: true,
+                      text: 'Tema',
+                      icon: Icons.invert_colors,
                       onPressed: () {},
                       selectedColor: primaryColor,
                     ),
                     NavBarIcon(
-                      text: 'Search',
-                      icon: Icons.search_outlined,
-                      selected: false,
+                      text: 'Analíticos',
+                      icon: Icons.analytics_outlined,
                       onPressed: () {},
                       selectedColor: primaryColor,
                     ),
                     const SizedBox(width: 56),
                     NavBarIcon(
-                      text: 'Cart',
-                      icon: Icons.local_grocery_store_outlined,
-                      selected: false,
+                      text: 'Notificações',
+                      icon: Icons.notification_add_outlined,
                       onPressed: () {},
                       selectedColor: primaryColor,
                     ),
                     NavBarIcon(
-                      text: 'Calendar',
-                      icon: Icons.date_range_outlined,
-                      selected: false,
+                      text: 'Opções',
+                      icon: Icons.settings_outlined,
                       onPressed: () {},
                       selectedColor: primaryColor,
                     ),
@@ -170,13 +168,13 @@ class BottomNavCurvePainter extends CustomPainter {
         insetCurveEndX + transitionToInsetCurveWidth,
         0,
       )
-      ..quadraticBezierTo(size.width * 0.80, 0, size.width - 16, 12)
+      ..quadraticBezierTo(size.width * 0.80, 0, size.width - 8, 12)
       ..arcToPoint(
-        Offset(size.width - 8, 16),
+        Offset(size.width, 16),
         radius: const Radius.circular(10),
         rotation: 180,
       )
-      ..lineTo(size.width - 8, size.height + 56)
+      ..lineTo(size.width, size.height + 56)
       // +56 here extends the navbar below app bar to include extra space on
       // some screens (iPhone 11)
       ..lineTo(0, size.height + 56);
@@ -194,11 +192,11 @@ class NavBarIcon extends StatelessWidget {
   const NavBarIcon({
     required this.text,
     required this.icon,
-    required this.selected,
     required this.onPressed,
-    super.key,
+    this.selected = false,
     this.selectedColor = const Color(0xffFF8527),
-    this.defaultColor = Colors.black54,
+    this.defaultColor = Colors.grey,
+    super.key,
   });
   final String text;
   final IconData icon;
@@ -218,10 +216,11 @@ class NavBarIcon extends StatelessWidget {
           highlightColor: Colors.transparent,
           icon: Icon(
             icon,
-            size: 25,
+            size: 20,
             color: selected ? selectedColor : defaultColor,
           ),
         ),
+        Text(text, style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
       ],
     );
   }
