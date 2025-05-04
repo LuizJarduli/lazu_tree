@@ -47,12 +47,9 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    const double height = 56;
+    const height = kToolbarHeight;
 
     final primaryColor = Colors.pinkAccent.shade100;
-    // const secondaryColor = Colors.black54;
-    // const accentColor = Color(0xffffffff);
-    // const backgroundColor = Colors.white;
 
     return BlocListener<LinkTreeCubit, LinkTreeState>(
       listener: (context, state) => toggleSlide(toggle: state.isEditing),
