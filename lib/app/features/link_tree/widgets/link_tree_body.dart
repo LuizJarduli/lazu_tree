@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_profile_container.dart';
 
 class LinkTreeBody extends StatelessWidget {
   const LinkTreeBody({super.key});
@@ -23,12 +24,7 @@ class LinkTreeBody extends StatelessWidget {
               ),
             ],
           ),
-          child: const Center(
-            child: Text(
-              'ACHADOS\n\t\t\t\t\t\t\tDA LAZU',
-              style: TextStyle(fontFamily: 'Kalufonia', fontSize: 36),
-            ),
-          ),
+          child: const Center(child: LinkTreeProfileContainer()),
         );
       },
     );
