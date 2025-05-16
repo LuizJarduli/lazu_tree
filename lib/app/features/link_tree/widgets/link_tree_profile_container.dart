@@ -1,15 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
 
-class LinkTreeProfileContainer extends StatelessWidget {
+class LinkTreeProfileContainer extends StatefulWidget {
   const LinkTreeProfileContainer({super.key});
+
+  @override
+  State<LinkTreeProfileContainer> createState() =>
+      _LinkTreeProfileContainerState();
+}
+
+class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _curveHeightAnimation;
+
+  static const double editingHeight = 100;
+  static const double normalHeight = 130;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _curveHeightAnimation = Tween<double>(
+      begin: normalHeight,
+      end: editingHeight,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final isEditing = context.watch<LinkTreeCubit>().state.isEditing;
+    if (isEditing) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CustomPaint(
-          size: const Size(double.infinity, 160),
-          painter: LinkTreeProfilePainter(),
+        AnimatedBuilder(
+          animation: _curveHeightAnimation,
+          builder: (context, child) {
+            return CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 160),
+              painter: LinkTreeProfilePainter(
+                curveHeight: _curveHeightAnimation.value,
+              ),
+            );
+          },
         ),
         const Positioned(
           child: Text(
@@ -23,6 +75,10 @@ class LinkTreeProfileContainer extends StatelessWidget {
 }
 
 class LinkTreeProfilePainter extends CustomPainter {
+  const LinkTreeProfilePainter({this.curveHeight = 130});
+
+  final double curveHeight;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint =
@@ -30,36 +86,29 @@ class LinkTreeProfilePainter extends CustomPainter {
           ..color = Colors.white
           ..style = PaintingStyle.fill;
 
-    const curveHeight = 140.0;
     final insetBeginningX = size.width / 2 - curveHeight;
-    final insetCurveBeginningX = insetBeginningX / 2 + 15;
     final insetEndX = size.width / 2 + curveHeight;
-    // final insetCurveEndX = insetEndX + 15;
-    const insetCurveHeight = curveHeight * 1.2;
 
     final path =
         Path()
           ..moveTo(0, 0)
-          // Entry curve (left)
-          ..lineTo(insetCurveBeginningX, 0)
-          ..quadraticBezierTo(
+          ..lineTo(insetBeginningX / 2, 0)
+          // first half of the curve
+          ..cubicTo(
             insetBeginningX,
             0,
-            size.width / 3.5,
-            (curveHeight / 4) * -1,
-          )
-          // Main central curve
-          ..quadraticBezierTo(
+            insetBeginningX,
+            -curveHeight,
             size.width / 2,
-            -insetCurveHeight,
-            insetEndX,
-            (curveHeight / 6) * -1,
+            -curveHeight,
           )
-          // Exit curve (right, symmetric)
-          ..quadraticBezierTo(
+          // second half of the curve
+          ..cubicTo(
+            insetEndX,
+            -curveHeight,
             insetEndX,
             0,
-            size.width - insetCurveBeginningX,
+            size.width - (insetBeginningX / 2),
             0,
           )
           ..lineTo(size.width, 0)
