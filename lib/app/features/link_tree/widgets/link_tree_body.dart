@@ -13,7 +13,7 @@ class LinkTreeBody extends StatelessWidget {
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.amber.shade300,
+            color: const Color(0xFFBA926E),
             borderRadius:
                 state.isEditing ? BorderRadius.circular(8) : BorderRadius.zero,
             boxShadow: [
@@ -24,7 +24,9 @@ class LinkTreeBody extends StatelessWidget {
               ),
             ],
           ),
-          child: const Center(child: LinkTreeProfileContainer()),
+          child: const Column(
+            children: [SizedBox(height: 150), LinkTreeProfileContainer()],
+          ),
         );
       },
     );

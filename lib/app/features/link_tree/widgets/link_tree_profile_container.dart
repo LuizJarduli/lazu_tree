@@ -50,26 +50,44 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        AnimatedBuilder(
-          animation: _curveHeightAnimation,
-          builder: (context, child) {
-            return CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 160),
-              painter: LinkTreeProfilePainter(
-                curveHeight: _curveHeightAnimation.value,
-              ),
-            );
-          },
-        ),
-        const Positioned(
-          child: Text(
-            'Profile',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return Expanded(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          AnimatedBuilder(
+            animation: _curveHeightAnimation,
+            builder: (context, child) {
+              return CustomPaint(
+                size: Size(MediaQuery.of(context).size.width, 160),
+                painter: LinkTreeProfilePainter(
+                  curveHeight: _curveHeightAnimation.value,
+                ),
+              );
+            },
           ),
-        ),
-      ],
+          Positioned(
+            left: 0,
+            right: 0,
+            top: -60,
+            child: Container(
+              width: 160,
+              height: 160,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey.shade300,
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.person,
+                  size: 80,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ),
+          ),
+          Positioned(top: 10, bottom: 0, child: Container(color: Colors.amber)),
+        ],
+      ),
     );
   }
 }
@@ -93,7 +111,6 @@ class LinkTreeProfilePainter extends CustomPainter {
         Path()
           ..moveTo(0, 0)
           ..lineTo(insetBeginningX / 2, 0)
-          // first half of the curve
           ..cubicTo(
             insetBeginningX,
             0,
@@ -102,7 +119,6 @@ class LinkTreeProfilePainter extends CustomPainter {
             size.width / 2,
             -curveHeight,
           )
-          // second half of the curve
           ..cubicTo(
             insetEndX,
             -curveHeight,
