@@ -9,7 +9,7 @@ class LinkTreeState extends Equatable {
     this.errorMessage,
     this.additionalErrorMessage,
     this.isEditing = false,
-    this.links = const [],
+    this.user,
   });
 
   final LinkTreeStatus status;
@@ -20,7 +20,7 @@ class LinkTreeState extends Equatable {
 
   final bool isEditing;
 
-  final List<String> links;
+  final User? user;
 
   @override
   List<Object?> get props => [
@@ -28,7 +28,7 @@ class LinkTreeState extends Equatable {
     errorMessage,
     additionalErrorMessage,
     isEditing,
-    links,
+    user,
   ];
 
   LinkTreeState copyWith({
@@ -36,7 +36,7 @@ class LinkTreeState extends Equatable {
     ValueGetter<String?>? errorMessage,
     ValueGetter<String?>? additionalErrorMessage,
     bool? isEditing,
-    List<String>? links,
+    ValueGetter<User?>? user,
   }) {
     return LinkTreeState(
       status: status ?? this.status,
@@ -45,7 +45,7 @@ class LinkTreeState extends Equatable {
           additionalErrorMessage != null
               ? additionalErrorMessage()
               : this.additionalErrorMessage,
-      links: links ?? this.links,
+      user: user != null ? user() : this.user,
       isEditing: isEditing ?? this.isEditing,
     );
   }

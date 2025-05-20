@@ -6,7 +6,8 @@ class LinkTreeRepository {
   const LinkTreeRepository();
 
   Future<User> getUserTree(String userId) async {
-    // TODO: use BaaS to get the user tree, see firebase or supabase
+    // ? TODO(lugalokinho): use BaaS to get the user tree,
+    // ? see firebase or supabase
     return Future.value(
       User(
         id: userId,
