@@ -13,10 +13,12 @@ class LinkTreeProfileContainer extends StatefulWidget {
 class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
   late Animation<double> _curveHeightAnimation;
 
-  static const double editingHeight = 100;
-  static const double normalHeight = 130;
+  static const double editingHeight = 85;
+
+  static const double normalHeight = 90;
 
   @override
   void initState() {
@@ -68,24 +70,32 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
           Positioned(
             left: 0,
             right: 0,
-            top: -60,
+            top: -95,
             child: Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade300,
-              ),
+              width: 190,
+              height: 190,
+              decoration: const BoxDecoration(shape: BoxShape.circle),
               child: Center(
-                child: Icon(
-                  Icons.person,
-                  size: 80,
-                  color: Colors.grey.shade600,
+                child: ClipOval(
+                  child: Image.asset(
+                    'images/profile_placeholder.png',
+                    width: 160,
+                    height: 160,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
           ),
-          Positioned(top: 10, bottom: 0, child: Container(color: Colors.amber)),
+          const Positioned(
+            top: 140,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: SingleChildScrollView(
+              child: Column(children: [Text('Profile')]),
+            ),
+          ),
         ],
       ),
     );
@@ -93,7 +103,7 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
 }
 
 class LinkTreeProfilePainter extends CustomPainter {
-  const LinkTreeProfilePainter({this.curveHeight = 130});
+  const LinkTreeProfilePainter({this.curveHeight = 120});
 
   final double curveHeight;
 
@@ -110,23 +120,8 @@ class LinkTreeProfilePainter extends CustomPainter {
     final path =
         Path()
           ..moveTo(0, 0)
-          ..lineTo(insetBeginningX / 2, 0)
-          ..cubicTo(
-            insetBeginningX,
-            0,
-            insetBeginningX,
-            -curveHeight,
-            size.width / 2,
-            -curveHeight,
-          )
-          ..cubicTo(
-            insetEndX,
-            -curveHeight,
-            insetEndX,
-            0,
-            size.width - (insetBeginningX / 2),
-            0,
-          )
+          ..lineTo(insetBeginningX, 0)
+          ..arcToPoint(Offset(insetEndX, 0), radius: const Radius.circular(10))
           ..lineTo(size.width, 0)
           ..lineTo(size.width, size.height)
           ..lineTo(0, size.height)

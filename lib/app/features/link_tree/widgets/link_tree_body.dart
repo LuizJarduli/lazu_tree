@@ -12,8 +12,9 @@ class LinkTreeBody extends StatelessWidget {
       buildWhen: (previous, current) => previous.isEditing != current.isEditing,
       builder: (context, state) {
         return Container(
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: const Color(0xFFBA926E),
+            color: Colors.white,
             borderRadius:
                 state.isEditing ? BorderRadius.circular(8) : BorderRadius.zero,
             boxShadow: [
@@ -24,8 +25,20 @@ class LinkTreeBody extends StatelessWidget {
               ),
             ],
           ),
-          child: const Column(
-            children: [SizedBox(height: 150), LinkTreeProfileContainer()],
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 150,
+                child: Image.asset(
+                  'images/banner_placeholder.jpg',
+                  fit: BoxFit.cover,
+                  colorBlendMode: BlendMode.overlay,
+                  color: Colors.black.withValues(alpha: .4),
+                ),
+              ),
+              const LinkTreeProfileContainer(),
+            ],
           ),
         );
       },

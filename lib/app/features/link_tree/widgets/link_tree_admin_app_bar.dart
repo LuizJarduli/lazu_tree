@@ -19,11 +19,13 @@ class LinkTreeAdminAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    final isEditing = context.watch<LinkTreeCubit>().state.isEditing;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: isEditing ? null : Colors.white),
           onPressed: () {
             context.pop();
           },
@@ -34,7 +36,7 @@ class LinkTreeAdminAppBar extends StatelessWidget
               icon:
                   state.isEditing
                       ? const Icon(Icons.remove_red_eye)
-                      : const Icon(Icons.edit),
+                      : const Icon(Icons.edit, color: Colors.white),
               onPressed: () {
                 context.read<LinkTreeCubit>().setIsEditing(
                   active: !state.isEditing,
