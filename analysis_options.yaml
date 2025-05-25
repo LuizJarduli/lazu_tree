@@ -3,10 +3,14 @@ include:
   - package:very_good_analysis/analysis_options.yaml
 
 linter:
-  rules:
+  rules:  
     prefer_single_quotes: true
     public_member_api_docs: false
-  
+
+formatter:
+  trailing_commas: preserve
+  page_width: 80
+
 analyzer:
   exclude:
     - pubspec.yaml

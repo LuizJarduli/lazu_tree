@@ -1,0 +1,14 @@
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/core/firebase/firebase_options.dart": {
+          "projectId": "lazu-tree",
+          "configurations": {
+            "web": "1:752239243888:web:c9f4bba1db0801ba44fab5"
+          }
+        }
+      }
+    }
+  }
+}
