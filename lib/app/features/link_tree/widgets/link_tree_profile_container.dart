@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_profile_socials.dart';
 
 class LinkTreeProfileContainer extends StatefulWidget {
   const LinkTreeProfileContainer({super.key});
@@ -53,50 +54,70 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          AnimatedBuilder(
-            animation: _curveHeightAnimation,
-            builder: (context, child) {
-              return CustomPaint(
-                size: Size(MediaQuery.of(context).size.width, 160),
-                painter: LinkTreeProfilePainter(
-                  curveHeight: _curveHeightAnimation.value,
-                ),
-              );
-            },
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: -95,
-            child: Container(
-              width: 190,
-              height: 190,
-              decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: Center(
-                child: ClipOval(
-                  child: Image.asset(
-                    'images/profile_placeholder.png',
-                    width: 160,
-                    height: 160,
-                    fit: BoxFit.cover,
+      child: BlocBuilder<LinkTreeCubit, LinkTreeState>(
+        builder: (context, state) {
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              AnimatedBuilder(
+                animation: _curveHeightAnimation,
+                builder: (context, child) {
+                  return CustomPaint(
+                    size: Size(MediaQuery.of(context).size.width, 160),
+                    painter: LinkTreeProfilePainter(
+                      curveHeight: _curveHeightAnimation.value,
+                    ),
+                  );
+                },
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                top: -95,
+                child: Container(
+                  width: 190,
+                  height: 190,
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: Center(
+                    child: ClipOval(
+                      child: Image.asset(
+                        'images/profile_placeholder.png',
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          const Positioned(
-            top: 140,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: SingleChildScrollView(
-              child: Column(children: [Text('Profile')]),
-            ),
-          ),
-        ],
+              const Positioned(
+                top: 110,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Achados da Lazú',
+                        style: TextStyle(
+                          fontFamily: 'Kalufonia',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 24,
+                          color: Color(0xFFAC8051),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      LinkTreeProfileSocials(
+                        color: Color(0xFFAC8051),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
