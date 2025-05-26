@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lazu_tree/app/features/link_tree/models/link.dart';
+import 'package:lazu_tree/app/features/link_tree/models/link_section.dart';
 import 'package:lazu_tree/app/features/link_tree/models/social_link.dart';
 
 @immutable
@@ -11,7 +11,7 @@ class User extends Equatable {
     required this.email,
     required this.phone,
     required this.image,
-    required this.links,
+    required this.linkSections,
     required this.socialLinks,
   });
 
@@ -25,7 +25,7 @@ class User extends Equatable {
 
   final String image;
 
-  final List<Link> links;
+  final List<LinkSection> linkSections;
 
   final List<SocialLink> socialLinks;
 
@@ -36,7 +36,7 @@ class User extends Equatable {
     email,
     phone,
     image,
-    links,
+    linkSections,
     socialLinks,
   ];
 
@@ -46,7 +46,7 @@ class User extends Equatable {
     String? email,
     String? phone,
     String? image,
-    List<Link>? links,
+    List<LinkSection>? linkSections,
     List<SocialLink>? socialLinks,
   }) {
     return User(
@@ -55,7 +55,7 @@ class User extends Equatable {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       image: image ?? this.image,
-      links: links ?? this.links,
+      linkSections: linkSections ?? this.linkSections,
       socialLinks: socialLinks ?? this.socialLinks,
     );
   }

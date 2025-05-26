@@ -1,4 +1,5 @@
 import 'package:lazu_tree/app/features/link_tree/models/link.dart';
+import 'package:lazu_tree/app/features/link_tree/models/link_section.dart';
 import 'package:lazu_tree/app/features/link_tree/models/social_link.dart';
 import 'package:lazu_tree/app/features/link_tree/models/user.dart';
 
@@ -15,13 +16,24 @@ class LinkTreeRepository {
         email: 'achadosdalazu@gmail.com',
         phone: '+55 11 99999-9999',
         image: 'https://example.com/image.png',
-        links: const [
-          Link(
+        linkSections: const [
+          LinkSection(
             id: '1',
-            name: 'O MELHOR grupo VIP com cupons e promoções todos os dias',
-            url: 'https://www.instagram.com/achadosdalazu',
-            image: 'https://example.com/image1.png',
-            containerType: LinkContainerType.tile,
+            links: [
+              Link(
+                id: '1',
+                description:
+                    'O MELHOR grupo VIP com cupons e promoções todos os dias',
+                url: 'https://www.instagram.com/achadosdalazu',
+                image: 'https://placehold.co/60x60@2x.png?text=Link%20img',
+              ),
+              Link(
+                id: '2',
+                description: 'Grupo VIP apenas de CUPONS de desconto!',
+                url: 'https://www.instagram.com/achadosdalazu',
+                image: 'https://placehold.co/60x60@2x.png?text=Link%20img',
+              ),
+            ],
           ),
         ],
         socialLinks: const [

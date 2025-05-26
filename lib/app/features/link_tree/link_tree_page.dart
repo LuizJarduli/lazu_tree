@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart' show GoRouterState;
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_repository.dart';
-import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin_app_bar.dart';
-import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin_bottom_bar.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/link_tree_admin_app_bar.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/link_tree_admin_bottom_bar.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_container.dart';
 
 class LinkTreePage extends StatefulWidget {
