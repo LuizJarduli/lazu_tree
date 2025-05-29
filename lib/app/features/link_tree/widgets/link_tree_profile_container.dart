@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_profile_socials.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_sections_factory.dart';
 
 class LinkTreeProfileContainer extends StatefulWidget {
   const LinkTreeProfileContainer({super.key});
@@ -90,26 +91,31 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 110,
                 bottom: 0,
                 left: 0,
                 right: 0,
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      const Text(
                         'Achados da Lazú',
                         style: TextStyle(
-                          fontFamily: 'Kalufonia',
-                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
                           fontSize: 24,
-                          color: Color(0xFFAC8051),
+                          color: Color.fromARGB(255, 172, 122, 143),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      LinkTreeProfileSocials(
-                        color: Color(0xFFAC8051),
+                      const SizedBox(height: 16),
+                      const LinkTreeProfileSocials(
+                        color: Color.fromARGB(255, 172, 122, 143),
+                      ),
+                      LinkTreeSectionsFactory(
+                        sections: state.user?.linkSections ?? [],
                       ),
                     ],
                   ),

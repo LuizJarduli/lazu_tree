@@ -9,6 +9,10 @@ enum LinkContainerType {
   static LinkContainerType fromString(String value) {
     return LinkContainerType.values.byName(value);
   }
+
+  bool get isTile => this == LinkContainerType.tile;
+
+  bool get isCard => this == LinkContainerType.card;
 }
 
 @immutable

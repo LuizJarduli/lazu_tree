@@ -35,6 +35,20 @@ class LinkTreeRepository {
               ),
             ],
           ),
+          LinkSection(
+            id: '2',
+            containerType: LinkContainerType.card,
+            title: 'Seção 2',
+            links: [
+              Link(
+                id: '1',
+                description:
+                    'O MELHOR grupo VIP com cupons e promoções todos os dias',
+                url: 'https://www.instagram.com/achadosdalazu',
+                image: 'https://placehold.co/60x60@2x.png?text=Link%20img',
+              ),
+            ],
+          ),
         ],
         socialLinks: const [
           SocialLink(
