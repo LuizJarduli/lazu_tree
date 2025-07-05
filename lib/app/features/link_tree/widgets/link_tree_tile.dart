@@ -24,6 +24,7 @@ class LinkTreeTile extends StatelessWidget {
             ),
           const SizedBox(height: 16),
           Wrap(
+            runSpacing: 16,
             children:
                 section.links
                     .map((link) => LinkTreeTileItem(link: link))
@@ -47,7 +48,9 @@ class LinkTreeTileItem extends StatelessWidget {
       child: Tooltip(
         message: link.url,
         child: Card(
-          color: const Color.fromARGB(107, 219, 203, 213),
+          color: Theme.of(
+            context,
+          ).colorScheme.secondaryContainer.withValues(alpha: 0.2),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(70),
@@ -65,15 +68,15 @@ class LinkTreeTileItem extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Text(
                     link.description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 172, 122, 143),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),

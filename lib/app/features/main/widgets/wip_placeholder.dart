@@ -81,11 +81,15 @@ class WipPlaceholder extends StatelessWidget {
 }
 
 class _NotebookPainter extends CustomPainter {
+  const _NotebookPainter({required this.context});
+
+  final BuildContext context;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint =
         Paint()
-          ..color = Colors.pink.shade100
+          ..color = Theme.of(context).colorScheme.primary
           ..style = PaintingStyle.fill;
 
     final path =
@@ -100,7 +104,7 @@ class _NotebookPainter extends CustomPainter {
 
     final holePaint =
         Paint()
-          ..color = Colors.brown.shade50
+          ..color = Theme.of(context).colorScheme.surfaceContainerHighest
           ..style = PaintingStyle.fill;
 
     for (double i = 80; i < size.height - 80; i += 160) {
@@ -125,7 +129,7 @@ class _NotebookPaper extends StatelessWidget {
           children: [
             CustomPaint(
               size: Size(constraints.maxWidth, constraints.maxHeight),
-              painter: _NotebookPainter(),
+              painter: _NotebookPainter(context: context),
             ),
             Positioned.fill(left: 80, child: child),
           ],

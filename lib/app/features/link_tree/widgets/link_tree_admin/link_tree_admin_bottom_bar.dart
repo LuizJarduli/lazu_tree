@@ -49,7 +49,7 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
     final size = MediaQuery.of(context).size;
     const height = kToolbarHeight;
 
-    final primaryColor = Colors.pinkAccent.shade100;
+    final primaryColor = Theme.of(context).colorScheme.primary;
 
     return BlocListener<LinkTreeCubit, LinkTreeState>(
       listener: (context, state) => toggleSlide(toggle: state.isEditing),
@@ -217,7 +217,13 @@ class NavBarIcon extends StatelessWidget {
             color: selected ? selectedColor : defaultColor,
           ),
         ),
-        Text(text, style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 10,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
       ],
     );
   }

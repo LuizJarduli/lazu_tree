@@ -8,7 +8,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown.shade50,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final effectivePadding =

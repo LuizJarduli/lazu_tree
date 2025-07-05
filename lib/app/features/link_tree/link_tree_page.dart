@@ -51,7 +51,7 @@ class _LinkTreePageState extends State<LinkTreePage> {
       appBar: const LinkTreeAdminAppBar(),
       extendBodyBehindAppBar: true,
       extendBody: true,
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       body: const LinkTreeContainer(),
       bottomNavigationBar: const LinkTreeAdminBottomBar(),
     );

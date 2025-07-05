@@ -28,7 +28,8 @@ class LinkTreeAdminAppBar extends StatelessWidget
           padding: const EdgeInsets.only(left: 16, top: 16),
           child: IconButton(
             style: IconButton.styleFrom(
-              backgroundColor: isEditing ? null : Colors.white,
+              backgroundColor:
+                  isEditing ? null : Theme.of(context).colorScheme.surface,
               elevation: isEditing ? 0 : 4,
               shape: const OvalBorder(),
             ),
@@ -44,7 +45,8 @@ class LinkTreeAdminAppBar extends StatelessWidget
               padding: const EdgeInsets.only(right: 16, top: 16),
               child: IconButton(
                 style: IconButton.styleFrom(
-                  backgroundColor: isEditing ? null : Colors.white,
+                  backgroundColor:
+                      isEditing ? null : Theme.of(context).colorScheme.surface,
                   elevation: isEditing ? 0 : 4,
                   shape: const OvalBorder(),
                 ),

@@ -14,12 +14,12 @@ class LinkTreeBody extends StatelessWidget {
         return Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius:
                 state.isEditing ? BorderRadius.circular(8) : BorderRadius.zero,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: .2),
+                color: Theme.of(context).colorScheme.shadow,
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -34,7 +34,7 @@ class LinkTreeBody extends StatelessWidget {
                   'images/banner_placeholder.jpg',
                   fit: BoxFit.cover,
                   colorBlendMode: BlendMode.overlay,
-                  color: Colors.black.withValues(alpha: .4),
+                  color: Theme.of(context).colorScheme.shadow,
                 ),
               ),
               const LinkTreeProfileContainer(),

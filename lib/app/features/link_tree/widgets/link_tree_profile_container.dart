@@ -66,6 +66,7 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
                   return CustomPaint(
                     size: Size(MediaQuery.of(context).size.width, 160),
                     painter: LinkTreeProfilePainter(
+                      context: context,
                       curveHeight: _curveHeightAnimation.value,
                     ),
                   );
@@ -101,18 +102,18 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
+                      Text(
                         'Achados da Lazú',
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
-                          color: Color.fromARGB(255, 172, 122, 143),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const LinkTreeProfileSocials(
-                        color: Color.fromARGB(255, 172, 122, 143),
+                      LinkTreeProfileSocials(
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       LinkTreeSectionsFactory(
                         sections: state.user?.linkSections ?? [],
@@ -130,7 +131,9 @@ class _LinkTreeProfileContainerState extends State<LinkTreeProfileContainer>
 }
 
 class LinkTreeProfilePainter extends CustomPainter {
-  const LinkTreeProfilePainter({this.curveHeight = 120});
+  const LinkTreeProfilePainter({required this.context, this.curveHeight = 120});
+
+  final BuildContext context;
 
   final double curveHeight;
 
@@ -138,7 +141,10 @@ class LinkTreeProfilePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint =
         Paint()
-          ..color = Colors.white
+          ..color =
+              Theme.of(context)
+                  .colorScheme
+                  .surface // This will be updated when we pass context
           ..style = PaintingStyle.fill;
 
     final insetBeginningX = size.width / 2 - curveHeight;
