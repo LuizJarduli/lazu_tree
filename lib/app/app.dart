@@ -5,6 +5,9 @@ import 'package:lazu_tree/app/app_router.dart';
 import 'package:lazu_tree/app/core/bloc_observer/app_bloc_observer.dart';
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/core/logger/logger_talker_impl.dart';
+import 'package:lazu_tree/app/shared/ui/theme/dark_theme.dart';
+import 'package:lazu_tree/app/shared/ui/theme/light_theme.dart';
+import 'package:lazu_tree/app/shared/ui/theme/theme_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -16,7 +19,14 @@ class App extends StatefulWidget {
           create: (context) => LoggerTalkerImpl.getInstance(),
         ),
       ],
-      child: child,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<ThemeCubit>(
+            create: (context) => ThemeCubit()..initializeTheme(),
+          ),
+        ],
+        child: child,
+      ),
     );
   }
 
@@ -37,10 +47,17 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return App.providerAppBuilder(
       context,
-      MaterialApp.router(
-        routerConfig: AppRouter.config,
-        debugShowCheckedModeBanner: false,
-        title: 'Achados da Lazu',
+      BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            routerConfig: AppRouter.config,
+            debugShowCheckedModeBanner: false,
+            title: 'Achados da Lazu',
+            theme: LightTheme.theme,
+            darkTheme: DarkTheme.theme,
+            themeMode: state.themeMode.idiomaticThemeMode,
+          );
+        },
       ),
     );
   }
