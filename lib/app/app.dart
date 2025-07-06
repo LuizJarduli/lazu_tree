@@ -5,6 +5,7 @@ import 'package:lazu_tree/app/app_router.dart';
 import 'package:lazu_tree/app/core/bloc_observer/app_bloc_observer.dart';
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/core/logger/logger_talker_impl.dart';
+import 'package:lazu_tree/app/shared/ui/scroll_behavior/app_scroll_behavior.dart';
 import 'package:lazu_tree/app/shared/ui/theme/dark_theme.dart';
 import 'package:lazu_tree/app/shared/ui/theme/light_theme.dart';
 import 'package:lazu_tree/app/shared/ui/theme/theme_cubit.dart';
@@ -56,6 +57,7 @@ class _AppState extends State<App> {
             theme: LightTheme.theme,
             darkTheme: DarkTheme.theme,
             themeMode: state.themeMode.idiomaticThemeMode,
+            scrollBehavior: AppScrollBehavior(),
           );
         },
       ),
