@@ -75,7 +75,7 @@ class _LinkTreeProfileSocialsItemState
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedScale(
         scale: _isHovered ? 1.3 : 1.0,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 150),
         curve: Curves.easeInOut,
         child: InkWell(
           onTap: () {
