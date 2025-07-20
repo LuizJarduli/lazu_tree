@@ -8,6 +8,7 @@ import 'package:lazu_tree/app/features/link_tree/link_tree_cubit.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_repository.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/link_tree_admin_app_bar.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/link_tree_admin_bottom_bar.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/settings/link_tree_settings_drawer.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_container.dart';
 
 class LinkTreePage extends StatefulWidget {
@@ -49,6 +50,7 @@ class _LinkTreePageState extends State<LinkTreePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const LinkTreeAdminAppBar(),
+      drawer: const LinkTreeSettingsDrawer(),
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,

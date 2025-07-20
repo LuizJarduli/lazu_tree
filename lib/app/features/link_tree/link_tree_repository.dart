@@ -15,7 +15,8 @@ class LinkTreeRepository {
         name: 'Achados da Lazu',
         email: 'achadosdalazu@gmail.com',
         phone: '+55 11 99999-9999',
-        image: 'https://example.com/image.png',
+        image:
+            'https://images.pexels.com/photos/264905/pexels-photo-264905.jpeg?_gl=1*p4rr2h*_ga*NDYzNTYxNTA5LjE3NTI5NzQ2MDY.*_ga_8JE65Q40S6*czE3NTI5NzQ2MDUkbzEkZzEkdDE3NTI5NzQ2NDAkajI1JGwwJGgw',
         linkSections: const [
           LinkSection(
             id: '1',

@@ -104,7 +104,9 @@ class _LinkTreeAdminBottomBarState extends State<LinkTreeAdminBottomBar>
                     NavBarIcon(
                       text: 'Opções',
                       icon: Icons.settings_outlined,
-                      onPressed: () {},
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
                       selectedColor: primaryColor,
                     ),
                   ],
