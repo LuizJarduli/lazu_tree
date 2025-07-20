@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/settings/link_tree_settings_preference_item.dart';
+import 'package:lazu_tree/app/features/link_tree/widgets/link_tree_admin/settings/link_tree_theme_switch.dart';
 
 class LinkTreeSettingsPreferencesContent extends StatelessWidget {
   const LinkTreeSettingsPreferencesContent({super.key});
@@ -12,21 +13,14 @@ class LinkTreeSettingsPreferencesContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _PreferencesSection(
+            const LinkTreeSettingsPreferencesSection(
               title: 'Aparência',
               items: [
-                LinkTreeSettingsPreferenceItem(
-                  icon: Icons.palette,
-                  title: 'Tema',
-                  subtitle: 'Escolha entre tema claro ou escuro',
-                  onTap: () {
-                    // TODO(lugalokinho): Implement theme switching
-                  },
-                ),
+                LinkTreeThemeSwitchWithLabel(),
               ],
             ),
             const SizedBox(height: 24),
-            _PreferencesSection(
+            LinkTreeSettingsPreferencesSection(
               title: 'Notificações',
               items: [
                 LinkTreeSettingsPreferenceItem(
@@ -40,7 +34,7 @@ class LinkTreeSettingsPreferencesContent extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            _PreferencesSection(
+            LinkTreeSettingsPreferencesSection(
               title: 'Privacidade',
               items: [
                 LinkTreeSettingsPreferenceItem(
@@ -68,10 +62,11 @@ class LinkTreeSettingsPreferencesContent extends StatelessWidget {
   }
 }
 
-class _PreferencesSection extends StatelessWidget {
-  const _PreferencesSection({
+class LinkTreeSettingsPreferencesSection extends StatelessWidget {
+  const LinkTreeSettingsPreferencesSection({
     required this.title,
     required this.items,
+    super.key,
   });
 
   final String title;
