@@ -121,19 +121,17 @@ class LightTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.backgroundLight,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+      border: const UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+      enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.grey.shade300),
       ),
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColors.lazuPurple, width: 2),
       ),
-      errorBorder: OutlineInputBorder(
+      errorBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColors.error),
       ),

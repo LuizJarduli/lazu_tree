@@ -124,19 +124,17 @@ class DarkTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: const Color(0xFF2D2D2D),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+      border: const UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+      enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.grey.shade600),
       ),
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColors.lazuPurple, width: 2),
       ),
-      errorBorder: OutlineInputBorder(
+      errorBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColors.error),
       ),

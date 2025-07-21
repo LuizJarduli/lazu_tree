@@ -1,16 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:lazu_tree/app/shared/ui/theme/dark_theme.dart';
 import 'package:lazu_tree/app/shared/ui/theme/light_theme.dart';
 
 part 'theme_state.dart';
 
-class ThemeCubit extends Cubit<ThemeState> {
+class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(const ThemeState());
 
   /// Initialize theme based on system preference
   void initializeTheme() {
+    // first check if the state is already set
+    if (state.themeMode != AppThemeMode.system) {
+      return;
+    }
+    // if not, set the theme based on the system brightness
     final brightness =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
     final isDark = brightness == Brightness.dark;
@@ -98,5 +103,21 @@ class ThemeCubit extends Cubit<ThemeState> {
       case AppThemeMode.system:
         return ThemeMode.system;
     }
+  }
+
+  @override
+  ThemeState? fromJson(Map<String, dynamic> json) {
+    return ThemeState(
+      themeMode: AppThemeMode.values[json['themeMode'] as int],
+      isSystemTheme: json['isSystemTheme'] as bool? ?? false,
+    );
+  }
+
+  @override
+  Map<String, dynamic>? toJson(ThemeState state) {
+    return {
+      'themeMode': state.themeMode.index,
+      'isSystemTheme': state.isSystemTheme,
+    };
   }
 }
