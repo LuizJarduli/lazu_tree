@@ -164,21 +164,6 @@ class _LoginPageState extends State<LoginPage> {
                                               .read<LoginCubit>()
                                               .loginWithGoogle(),
                             ),
-                            const SizedBox(height: 8),
-                            ElevatedButton.icon(
-                              icon: const Icon(
-                                Icons.apple,
-                                size: 24,
-                              ),
-                              label: const Text('Entrar com apple'),
-                              onPressed:
-                                  state is LoginLoading
-                                      ? null
-                                      : () =>
-                                          context
-                                              .read<LoginCubit>()
-                                              .loginWithApple(),
-                            ),
                           ],
                         );
                       },

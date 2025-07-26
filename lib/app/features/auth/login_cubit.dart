@@ -60,29 +60,6 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> loginWithApple() async {
-    emit(const LoginLoading());
-
-    try {
-      await _authRepository.signInWithApple();
-
-      emit(const LoginSuccess());
-    } on Exception catch (error, stackTrace) {
-      _logger.error(
-        'Login failed with Apple',
-        error,
-        stackTrace,
-      );
-
-      emit(
-        const LoginError(
-          'Não foi possível fazer login com a Apple',
-          'Tente novamente mais tarde.',
-        ),
-      );
-    }
-  }
-
   void reset() {
     emit(const LoginInitial());
   }

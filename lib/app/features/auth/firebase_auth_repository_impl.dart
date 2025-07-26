@@ -17,14 +17,20 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithApple() async {
-    // TODO(lugalokinho): Implement Firebase Apple sign in
+  Future<void> signOut() {
+    // TODO(lugalokinho): implement signOut
     throw UnimplementedError();
   }
 
   @override
-  Future<void> signOut() {
-    // TODO(lugalokinho): implement signOut
+  Future<void> resetPassword(String email) {
+    // TODO(lugalokinho): implement resetPassword
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> sendEmailVerification(String email) {
+    // TODO(lugalokinho): implement sendEmailVerification
     throw UnimplementedError();
   }
 }
