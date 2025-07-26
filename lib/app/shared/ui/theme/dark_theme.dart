@@ -77,7 +77,7 @@ class DarkTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         textStyle: AppTheme.textTheme.labelLarge,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       ),
     ),
 
@@ -89,7 +89,7 @@ class DarkTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       ),
     ),
 

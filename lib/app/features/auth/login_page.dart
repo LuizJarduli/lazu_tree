@@ -5,6 +5,7 @@ import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/features/auth/auth_repository.dart';
 import 'package:lazu_tree/app/features/auth/firebase_auth_repository_impl.dart';
 import 'package:lazu_tree/app/features/auth/login_cubit.dart';
+import 'package:lazu_tree/app/shared/extensions/app_breakpoints_ext.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -46,114 +47,148 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Center(
-        child: Material(
-          elevation: 4,
-          borderRadius: BorderRadius.circular(16),
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          child: Container(
-            width: 350,
-            padding: const EdgeInsets.all(24),
-            child: BlocBuilder<LoginCubit, LoginState>(
-              builder: (context, state) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Login',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24),
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        labelText: 'Senha',
-                      ),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed:
-                          state is LoginLoading
-                              ? null
-                              : () {
-                                context.read<LoginCubit>().loginWithEmail(
-                                  _emailController.text,
-                                  _passwordController.text,
-                                );
-                              },
-                      child:
-                          state is LoginLoading
-                              ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isSmall = constraints.isSmall;
+          final effectiveAlignment =
+              isSmall ? MainAxisAlignment.start : MainAxisAlignment.center;
+
+          return SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: effectiveAlignment,
+              children: [
+                Material(
+                  color: Theme.of(context).colorScheme.surface,
+                  child: Container(
+                    width: 350,
+                    padding: const EdgeInsets.all(24),
+                    child: BlocBuilder<LoginCubit, LoginState>(
+                      builder: (context, state) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Olá, seja bem vindo',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              'Digite suas credenciais abaixo para '
+                              'realizar o login',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            TextField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                labelText: 'Email',
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            const SizedBox(height: 16),
+                            TextField(
+                              controller: _passwordController,
+                              decoration: const InputDecoration(
+                                labelText: 'Senha',
+                              ),
+                              obscureText: true,
+                            ),
+                            const SizedBox(height: 24),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                textStyle: const TextStyle(height: 1.71),
+                              ),
+                              onPressed:
+                                  state is LoginLoading
+                                      ? null
+                                      : () {
+                                        context
+                                            .read<LoginCubit>()
+                                            .loginWithEmail(
+                                              _emailController.text,
+                                              _passwordController.text,
+                                            );
+                                      },
+                              child:
+                                  state is LoginLoading
+                                      ? const SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                      : const Text('Entrar'),
+                            ),
+                            if (state is LoginError)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: Text(
+                                  state.errorMessage,
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                              )
-                              : const Text('Entrar'),
+                              ),
+                            const SizedBox(height: 24),
+                            const Row(
+                              children: [
+                                Expanded(child: Divider()),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: Text('ou'),
+                                ),
+                                Expanded(child: Divider()),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            ElevatedButton.icon(
+                              icon: const Icon(
+                                Icons.g_mobiledata_rounded,
+                                size: 24,
+                              ),
+                              label: const Text('Entrar com Google'),
+                              onPressed:
+                                  state is LoginLoading
+                                      ? null
+                                      : () =>
+                                          context
+                                              .read<LoginCubit>()
+                                              .loginWithGoogle(),
+                            ),
+                            const SizedBox(height: 8),
+                            ElevatedButton.icon(
+                              icon: const Icon(
+                                Icons.apple,
+                                size: 24,
+                              ),
+                              label: const Text('Entrar com apple'),
+                              onPressed:
+                                  state is LoginLoading
+                                      ? null
+                                      : () =>
+                                          context
+                                              .read<LoginCubit>()
+                                              .loginWithApple(),
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                    if (state is LoginError)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: Text(
-                          state.errorMessage,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    const SizedBox(height: 24),
-                    const Row(
-                      children: [
-                        Expanded(child: Divider()),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text('ou'),
-                        ),
-                        Expanded(child: Divider()),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton.icon(
-                      icon: const Icon(
-                        Icons.g_mobiledata_rounded,
-                        size: 24,
-                      ),
-                      label: const Text('Entrar com Google'),
-                      onPressed:
-                          state is LoginLoading
-                              ? null
-                              : () =>
-                                  context.read<LoginCubit>().loginWithGoogle(),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.apple),
-                      label: const Text('Entrar com apple'),
-                      onPressed:
-                          state is LoginLoading
-                              ? null
-                              : () =>
-                                  context.read<LoginCubit>().loginWithApple(),
-                    ),
-                  ],
-                );
-              },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

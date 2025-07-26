@@ -74,7 +74,7 @@ class LightTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         textStyle: AppTheme.textTheme.labelLarge,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       ),
     ),
 
@@ -86,7 +86,7 @@ class LightTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       ),
     ),
 
@@ -120,7 +120,7 @@ class LightTheme {
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.backgroundLight,
+      fillColor: Colors.white,
       border: const UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
