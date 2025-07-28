@@ -1,13 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lazu_tree/app/core/exceptions/exceptions.dart';
 import 'package:lazu_tree/app/features/auth/auth_repository.dart';
 
 class FirebaseAuthRepositoryImpl implements AuthRepository {
+  const FirebaseAuthRepositoryImpl(this._firebaseAuth);
+
+  final FirebaseAuth _firebaseAuth;
+
   @override
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    // TODO(lugalokinho): Implement Firebase email/password sign in
-    throw UnimplementedError();
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (error, stackTrace) {
+      final exception = switch (error.code) {
+        'user-not-found' => UserNotFoundException(stackTrace),
+        'wrong-password' => WrongPasswordException(stackTrace),
+        _ => Exception('Failed to sign in: ${error.message}'),
+      };
+
+      throw exception;
+    } catch (error) {
+      throw Exception('Failed to sign in: $error');
+    }
   }
 
   @override
@@ -18,8 +38,7 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signOut() {
-    // TODO(lugalokinho): implement signOut
-    throw UnimplementedError();
+    return _firebaseAuth.signOut();
   }
 
   @override

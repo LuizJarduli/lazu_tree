@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lazu_tree/app/app_router.dart';
 import 'package:lazu_tree/app/core/bloc_observer/app_bloc_observer.dart';
@@ -58,6 +59,7 @@ class _AppState extends State<App> {
             darkTheme: DarkTheme.theme,
             themeMode: state.themeMode.idiomaticThemeMode,
             scrollBehavior: AppScrollBehavior(),
+            builder: FToastBuilder(),
           );
         },
       ),

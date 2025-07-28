@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,7 +6,9 @@ import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/features/auth/auth_repository.dart';
 import 'package:lazu_tree/app/features/auth/firebase_auth_repository_impl.dart';
 import 'package:lazu_tree/app/features/auth/login_cubit.dart';
+import 'package:lazu_tree/app/features/auth/widgets/login_logo.dart';
 import 'package:lazu_tree/app/shared/extensions/app_breakpoints_ext.dart';
+import 'package:lazu_tree/app/shared/utils/app_toast_mixin.dart';
 
 class LoginSignInPage extends StatefulWidget {
   const LoginSignInPage({super.key});
@@ -14,7 +17,10 @@ class LoginSignInPage extends StatefulWidget {
     return MultiBlocProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
-          create: (context) => FirebaseAuthRepositoryImpl(),
+          create:
+              (context) => FirebaseAuthRepositoryImpl(
+                FirebaseAuth.instance,
+              ),
         ),
         BlocProvider<LoginCubit>(
           create:
@@ -32,7 +38,7 @@ class LoginSignInPage extends StatefulWidget {
   State<LoginSignInPage> createState() => _LoginSignInPageState();
 }
 
-class _LoginSignInPageState extends State<LoginSignInPage> {
+class _LoginSignInPageState extends State<LoginSignInPage> with AppToastMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -57,19 +63,42 @@ class _LoginSignInPageState extends State<LoginSignInPage> {
             child: Column(
               mainAxisAlignment: effectiveAlignment,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                  child: LoginLogo(),
+                ),
                 Material(
                   color: Theme.of(context).colorScheme.surface,
                   child: Container(
                     width: 350,
                     padding: const EdgeInsets.all(24),
-                    child: BlocBuilder<LoginCubit, LoginState>(
+                    child: BlocConsumer<LoginCubit, LoginState>(
+                      listener: (context, state) {
+                        final handler = switch (state) {
+                          LoginSuccess() => () {
+                            showSuccessToast(
+                              title: 'Login realizado com sucesso!',
+                            );
+                            context.go('/links');
+                          },
+                          LoginError() => () {
+                            showErrorToast(
+                              title: state.errorMessage,
+                              description: state.additionalMessage,
+                            );
+                          },
+                          _ => null,
+                        };
+
+                        handler?.call();
+                      },
                       builder: (context, state) {
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Olá, seja bem vindo',
+                              'Olá, seja bem-vindo',
                               style: Theme.of(context).textTheme.headlineSmall,
                               textAlign: TextAlign.center,
                             ),
@@ -77,8 +106,8 @@ class _LoginSignInPageState extends State<LoginSignInPage> {
                               height: 24,
                             ),
                             Text(
-                              'Digite suas credenciais abaixo para '
-                              'realizar o login',
+                              'Digite suas credenciais abaixo\n para '
+                              'realizar o login:',
                               style: Theme.of(context).textTheme.bodyMedium,
                               textAlign: TextAlign.center,
                             ),
