@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lazu_tree/app/app_router.dart';
 import 'package:lazu_tree/app/shared/ui/widgets/app_toast.dart';
 
 mixin AppToastMixin<T extends StatefulWidget> on State<T> {
@@ -8,7 +9,7 @@ mixin AppToastMixin<T extends StatefulWidget> on State<T> {
   FToast get fToast {
     if (_fToast == null) {
       _fToast = FToast();
-      _fToast!.init(context);
+      _fToast!.init(AppRouter.navigatorKey.currentContext!);
     }
 
     return _fToast!;
