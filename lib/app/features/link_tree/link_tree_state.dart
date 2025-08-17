@@ -20,7 +20,7 @@ class LinkTreeState extends Equatable {
 
   final bool isEditing;
 
-  final User? user;
+  final AppUser? user;
 
   @override
   List<Object?> get props => [
@@ -36,7 +36,7 @@ class LinkTreeState extends Equatable {
     ValueGetter<String?>? errorMessage,
     ValueGetter<String?>? additionalErrorMessage,
     bool? isEditing,
-    ValueGetter<User?>? user,
+    ValueGetter<AppUser?>? user,
   }) {
     return LinkTreeState(
       status: status ?? this.status,

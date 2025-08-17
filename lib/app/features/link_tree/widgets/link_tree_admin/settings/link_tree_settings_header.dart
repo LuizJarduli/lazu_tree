@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lazu_tree/app/features/link_tree/models/user.dart';
+import 'package:lazu_tree/app/features/link_tree/models/app_user.dart';
 
 class LinkTreeSettingsHeader extends StatelessWidget {
   const LinkTreeSettingsHeader({required this.user, super.key});
 
-  final User? user;
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LinkTreeSettingsHeader extends StatelessWidget {
 class _UserAvatar extends StatelessWidget {
   const _UserAvatar({required this.user});
 
-  final User? user;
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _UserAvatar extends StatelessWidget {
         child:
             user?.image != null
                 ? Image.network(
-                  user!.image,
+                  user!.image!,
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,
@@ -73,7 +73,7 @@ class _UserAvatar extends StatelessWidget {
 class _UserName extends StatelessWidget {
   const _UserName({required this.user});
 
-  final User? user;
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class _UserName extends StatelessWidget {
 class _UserEmail extends StatelessWidget {
   const _UserEmail({required this.user});
 
-  final User? user;
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {

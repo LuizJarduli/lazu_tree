@@ -1,16 +1,16 @@
+import 'package:lazu_tree/app/features/link_tree/models/app_user.dart';
 import 'package:lazu_tree/app/features/link_tree/models/link.dart';
 import 'package:lazu_tree/app/features/link_tree/models/link_section.dart';
 import 'package:lazu_tree/app/features/link_tree/models/social_link.dart';
-import 'package:lazu_tree/app/features/link_tree/models/user.dart';
 
 class LinkTreeRepository {
   const LinkTreeRepository();
 
-  Future<User> getUserTree(String userId) async {
+  Future<AppUser> getUserTree(String userId) async {
     // ? TODO(lugalokinho): use BaaS to get the user tree,
     // ? see firebase or supabase
     return Future.value(
-      User(
+      AppUser(
         id: userId,
         name: 'Achados da Lazu',
         email: 'achadosdalazu@gmail.com',

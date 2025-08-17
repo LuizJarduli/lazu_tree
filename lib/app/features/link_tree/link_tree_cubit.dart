@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/features/link_tree/link_tree_repository.dart';
-import 'package:lazu_tree/app/features/link_tree/models/user.dart';
+import 'package:lazu_tree/app/features/link_tree/models/app_user.dart';
 
 part 'link_tree_state.dart';
 
