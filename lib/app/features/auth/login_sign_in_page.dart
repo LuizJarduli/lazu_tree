@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +23,7 @@ class LoginSignInPage extends StatefulWidget {
           create:
               (context) => FirebaseAuthRepositoryImpl(
                 FirebaseAuth.instance,
+                FirebaseFirestore.instance,
               ),
         ),
         BlocProvider<LoginCubit>(
@@ -41,6 +45,13 @@ class LoginSignInPage extends StatefulWidget {
 class _LoginSignInPageState extends State<LoginSignInPage> with AppToastMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scheduleMicrotask(context.read<LoginCubit>().checkForLoginRedirect);
+  }
 
   @override
   void dispose() {
@@ -79,7 +90,7 @@ class _LoginSignInPageState extends State<LoginSignInPage> with AppToastMixin {
                             showSuccessToast(
                               title: 'Login realizado com sucesso!',
                             );
-                            context.go('/links');
+                            context.go(state.redirectUrl ?? '/links');
                           },
                           LoginError() => () {
                             showErrorToast(

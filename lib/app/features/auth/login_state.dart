@@ -16,7 +16,12 @@ final class LoginLoading extends LoginState {
 }
 
 final class LoginSuccess extends LoginState {
-  const LoginSuccess();
+  const LoginSuccess({this.redirectUrl});
+
+  final String? redirectUrl;
+
+  @override
+  List<Object?> get props => [redirectUrl];
 }
 
 final class LoginError extends LoginState {

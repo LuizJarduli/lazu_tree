@@ -11,4 +11,6 @@ abstract interface class AuthRepository {
   Future<void> sendEmailVerification(String email);
 
   Future<void> resetPassword(String email);
+
+  Future<bool> completeSignInWithRedirect();
 }

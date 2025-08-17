@@ -60,6 +60,22 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  Future<void> checkForLoginRedirect() async {
+    try {
+      final response = await _authRepository.completeSignInWithRedirect();
+
+      if (response) {
+        emit(const LoginSuccess(redirectUrl: '/links'));
+      }
+    } on Exception catch (error, stackTrace) {
+      _logger.error(
+        'An error occurred silently on trying to resolve a login redirect',
+        error,
+        stackTrace,
+      );
+    }
+  }
+
   void reset() {
     emit(const LoginInitial());
   }
