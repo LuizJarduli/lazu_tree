@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:lazu_tree/app/core/exceptions/exceptions.dart';
 import 'package:lazu_tree/app/core/firebase/firebase_collections.dart';
 import 'package:lazu_tree/app/features/auth/auth_repository.dart';
@@ -43,17 +44,26 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
             ..addScope('https://www.googleapis.com/auth/contacts.readonly')
             ..setCustomParameters({'login_hint': 'usuário@domínio.com.br'});
 
-      await _firebaseAuth.signInWithRedirect(provider);
-      final userCred = await _firebaseAuth.getRedirectResult();
-      final user = userCred.user;
-      final userDoc =
-          await _firebaseFirestore
-              .collection(FirebaseCollections.users)
-              .doc(user?.uid)
-              .get();
+      // Firebase authDomain redirects only works under
+      // the hood for https domains. So in dev environment
+      // is more appropriate and fast to use a popup than a proxy.
+      if (kDebugMode) {
+        final userCred = await _firebaseAuth.signInWithPopup(provider);
+        final user = userCred.user;
 
-      if (!userDoc.exists) {
-        await _createAccountFromGoogle(user!);
+        if (user == null) return;
+
+        final userDoc =
+            await _firebaseFirestore
+                .collection(FirebaseCollections.users)
+                .doc(user.uid)
+                .get();
+
+        if (!userDoc.exists) {
+          await _createAccountFromGoogle(user);
+        }
+      } else {
+        await _firebaseAuth.signInWithRedirect(provider);
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-disabled') {
