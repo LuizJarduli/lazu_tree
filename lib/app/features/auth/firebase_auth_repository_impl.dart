@@ -119,9 +119,12 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
   Future<DocumentReference> _createAccountFromGoogle(User user) async {
     try {
       final User(:uid, :displayName, :email, :phoneNumber, :photoURL) = user;
+      final username =
+          email ?? displayName?.replaceAll(RegExp(r'\s+'), '_') ?? 'user_$uid';
 
       final appUser = AppUser(
         id: uid,
+        username: username,
         name: displayName ?? email ?? 'usuário $uid',
         email: email!,
         phone: phoneNumber,

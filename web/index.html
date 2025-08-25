@@ -31,6 +31,27 @@
 
   <title>lazu_tree</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: 'AIzaSyBloN55r-zWsRbzGnHay-HaprWzE-D2b7o',
+      appId: '1:752239243888:web:c9f4bba1db0801ba44fab5',
+      messagingSenderId: '752239243888',
+      projectId: 'lazu-tree',
+      authDomain: 'lazu-tree.firebaseapp.com',
+      storageBucket: 'lazu-tree.firebasestorage.app',
+      measurementId: 'G-S4PH63YY3W',
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>

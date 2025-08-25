@@ -6,12 +6,13 @@ import 'package:lazu_tree/app/features/link_tree/models/social_link.dart';
 class LinkTreeRepository {
   const LinkTreeRepository();
 
-  Future<AppUser> getUserTree(String userId) async {
+  Future<AppUser> getUserTree(String username) async {
     // ? TODO(lugalokinho): use BaaS to get the user tree,
     // ? see firebase or supabase
     return Future.value(
       AppUser(
-        id: userId,
+        id: '1',
+        username: username,
         name: 'Achados da Lazu',
         email: 'achadosdalazu@gmail.com',
         phone: '+55 11 99999-9999',

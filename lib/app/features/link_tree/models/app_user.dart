@@ -13,6 +13,7 @@ class AppUser extends Equatable {
     required this.email,
     required this.linkSections,
     required this.socialLinks,
+    required this.username,
     this.image,
     this.phone,
   });
@@ -21,6 +22,7 @@ class AppUser extends Equatable {
     return AppUser(
       id: map['id'] as String,
       name: map['name'] as String,
+      username: map['username'] as String,
       email: map['email'] as String,
       phone: map['phone'] as String?,
       image: map['image'] as String?,
@@ -46,6 +48,8 @@ class AppUser extends Equatable {
 
   final String name;
 
+  final String username;
+
   final String email;
 
   final String? phone;
@@ -60,6 +64,7 @@ class AppUser extends Equatable {
   List<Object?> get props => [
     id,
     name,
+    username,
     email,
     phone,
     image,
@@ -70,6 +75,7 @@ class AppUser extends Equatable {
   AppUser copyWith({
     String? id,
     String? name,
+    String? username,
     String? email,
     ValueGetter<String>? phone,
     ValueGetter<String>? image,
@@ -79,6 +85,7 @@ class AppUser extends Equatable {
     return AppUser(
       id: id ?? this.id,
       name: name ?? this.name,
+      username: username ?? this.username,
       email: email ?? this.email,
       phone: phone != null ? phone() : this.phone,
       image: image != null ? image() : this.image,
@@ -91,6 +98,7 @@ class AppUser extends Equatable {
     return {
       'id': id,
       'name': name,
+      'username': username,
       'email': email,
       'phone': phone,
       'image': image,

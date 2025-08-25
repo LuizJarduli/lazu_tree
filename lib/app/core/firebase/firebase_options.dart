@@ -60,5 +60,6 @@ class DefaultFirebaseOptions {
     authDomain: 'lazu-tree.firebaseapp.com',
     storageBucket: 'lazu-tree.firebasestorage.app',
     measurementId: 'G-S4PH63YY3W',
+    databaseURL: 'https://lazu-tree-db.firebaseio.com',
   );
 }
