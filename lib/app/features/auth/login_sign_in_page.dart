@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lazu_tree/app/core/env/env.dart';
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/features/auth/auth_repository.dart';
 import 'package:lazu_tree/app/features/auth/firebase_auth_repository_impl.dart';
@@ -23,7 +24,10 @@ class LoginSignInPage extends StatefulWidget {
           create:
               (context) => FirebaseAuthRepositoryImpl(
                 FirebaseAuth.instance,
-                FirebaseFirestore.instance,
+                FirebaseFirestore.instanceFor(
+                  app: FirebaseFirestore.instance.app,
+                  databaseId: context.read<Env>().firestoreDatabase,
+                ),
               ),
         ),
         BlocProvider<LoginCubit>(
