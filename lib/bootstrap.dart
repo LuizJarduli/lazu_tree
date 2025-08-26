@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:lazu_tree/app/app.dart';
+import 'package:lazu_tree/app/core/env/env_impl.dart';
 import 'package:lazu_tree/app/core/firebase/firebase_options.dart';
 
 Future<void> bootstrap() async {
@@ -20,13 +21,23 @@ Future<void> bootstrap() async {
 
   // Enable Firestore offline persistence for web
   if (kIsWeb) {
-    FirebaseFirestore.instance
-      ..settings = const Settings(
-        persistenceEnabled: true,
-        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-      )
-      // ? TODO(lugalokinho): move to an env file
-      ..databaseId = 'lazu-tree-db';
+    final env = EnvImpl();
+    if (env.firestoreDatabase.isNotEmpty) {
+      FirebaseFirestore.instance
+        ..settings = const Settings(
+          persistenceEnabled: true,
+          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+        )
+        ..databaseId = env.firestoreDatabase;
+    } else {
+      // use default database
+      FirebaseFirestore.instance
+        ..settings = const Settings(
+          persistenceEnabled: true,
+          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+        )
+        ..databaseId = '(default)';
+    }
   }
 
   // initialize hydrated bloc (web only for now)

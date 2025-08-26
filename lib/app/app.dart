@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lazu_tree/app/app_router.dart';
 import 'package:lazu_tree/app/core/bloc_observer/app_bloc_observer.dart';
+import 'package:lazu_tree/app/core/env/env.dart';
+import 'package:lazu_tree/app/core/env/env_impl.dart';
 import 'package:lazu_tree/app/core/logger/logger.dart';
 import 'package:lazu_tree/app/core/logger/logger_talker_impl.dart';
 import 'package:lazu_tree/app/shared/ui/scroll_behavior/app_scroll_behavior.dart';
@@ -17,6 +19,9 @@ class App extends StatefulWidget {
   static Widget providerAppBuilder(BuildContext context, Widget child) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<Env>(
+          create: (context) => EnvImpl(),
+        ),
         RepositoryProvider<Logger>(
           create: (context) => LoggerTalkerImpl.getInstance(),
         ),
