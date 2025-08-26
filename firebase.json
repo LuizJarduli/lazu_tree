@@ -1,5 +1,9 @@
 {
   "projectId": "lazu-tree",
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "flutter": {
     "platforms": {
       "dart": {
