@@ -53,6 +53,7 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
 
         if (user == null) return;
 
+        // Check if user document exists by UID
         final userDoc =
             await _firebaseFirestore
                 .collection(FirebaseCollections.users)
@@ -60,6 +61,20 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
                 .get();
 
         if (!userDoc.exists) {
+          // Check if email already exists in the system
+          final existingUserQuery =
+              await _firebaseFirestore
+                  .collection(FirebaseCollections.users)
+                  .where('email', isEqualTo: user.email)
+                  .limit(1)
+                  .get();
+
+          if (existingUserQuery.docs.isNotEmpty) {
+            // Email already exists with a different login method
+            // User can sign in but we don't create a duplicate account
+            return;
+          }
+
           await _createAccountFromGoogle(user);
         }
       } else {
@@ -100,6 +115,7 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
 
       if (user == null) return false;
 
+      // Check if user document exists by UID
       final userDoc =
           await _firebaseFirestore
               .collection(FirebaseCollections.users)
@@ -107,6 +123,20 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
               .get();
 
       if (!userDoc.exists) {
+        // Check if email already exists in the system
+        final existingUserQuery =
+            await _firebaseFirestore
+                .collection(FirebaseCollections.users)
+                .where('email', isEqualTo: user.email)
+                .limit(1)
+                .get();
+
+        if (existingUserQuery.docs.isNotEmpty) {
+          // Email already exists with a different login method
+          // User can sign in but we don't create a duplicate account
+          return true;
+        }
+
         await _createAccountFromGoogle(user);
       }
 
@@ -116,7 +146,7 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  Future<DocumentReference> _createAccountFromGoogle(User user) async {
+  Future<void> _createAccountFromGoogle(User user) async {
     try {
       final User(:uid, :displayName, :email, :phoneNumber, :photoURL) = user;
       final username =
@@ -133,9 +163,10 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
         socialLinks: const [],
       );
 
-      return _firebaseFirestore
+      await _firebaseFirestore
           .collection(FirebaseCollections.users)
-          .add(appUser.toMap());
+          .doc(uid)
+          .set(appUser.toMap());
     } catch (error) {
       throw Exception('Failed to create user from sign in: $error');
     }
